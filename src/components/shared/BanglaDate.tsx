@@ -18,7 +18,7 @@ const BanglaDate = () => {
     setCurrentDate(date)
   }, [])
 
-  return <div className='text-xs md:text-sm text-[#384641]'>{currentDate}</div>
+  return <div className='text-xs md:text-xs text-[#505856]'>{currentDate}</div>
 }
 
 export default BanglaDate

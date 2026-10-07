@@ -13,9 +13,9 @@ const Header = () => {
             <Image
               src={logo}
               alt='Logo'
-              width={48}
-              height={48}
-              className='rounded-xl border border-[#16A34A] bg-green-50 p-2 text-white'
+              width={40}
+              height={40}
+              className='rounded-xl border border-[#95bba3] bg-green-50 p-2 text-white'
             />
           </Link>
           <div>
