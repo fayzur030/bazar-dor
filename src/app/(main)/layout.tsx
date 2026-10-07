@@ -1,0 +1,14 @@
+import Header from '@/components/shared/Header'
+
+export default async function MainLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <>
+      <Header />
+      <main>{children}</main>
+    </>
+  )
+}
