@@ -1,7 +1,6 @@
 import Marquee from '@/components/Marquee'
 import CategoryNavbar from '@/components/shared/CategoryNavbar'
 import Header from '@/components/shared/Header'
-import { Suspense } from 'react'
 
 export default async function MainLayout({
   children,
@@ -11,10 +10,8 @@ export default async function MainLayout({
   return (
     <>
       <Header />
-      <Suspense>
-        <CategoryNavbar />
-        <Marquee />
-      </Suspense>
+      <CategoryNavbar />
+      <Marquee />
       <main>{children}</main>
     </>
   )
