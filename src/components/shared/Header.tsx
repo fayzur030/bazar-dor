@@ -22,7 +22,9 @@ const Header = () => {
             <h1 className='text-base md:text-xl font-extrabold text-[#172721]'>
               বাজার দর
             </h1>
-            <BanglaDate />
+            <div className='text-xs md:text-xs text-[#505856]'>
+              <BanglaDate />
+            </div>
           </div>
         </div>
         <UserInfo />
