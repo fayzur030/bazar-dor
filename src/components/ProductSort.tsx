@@ -3,6 +3,7 @@ import { Product } from '@/types/productTypes'
 import { Key, Label, ListBox, Select } from '@heroui/react'
 import PriceCard from './shared/PriceCard'
 import { useState } from 'react'
+import { banglaNumber } from '@/utils/unitLabel'
 
 //sort stypes
 
@@ -51,7 +52,7 @@ const ProductSort = ({ allProducts }: AllProductsProps) => {
           </h2>
 
           <p className='text-sm text-[#5A6762] lg:text-base'>
-            মোট ৩৩টি পণ্য দেখানো হচ্ছে
+            {`মোট ${banglaNumber(allProducts.length)} টি পণ্য দেখানো হচ্ছে`}
           </p>
         </div>
 

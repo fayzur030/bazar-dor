@@ -1,5 +1,5 @@
 import { Product } from '@/types/productTypes'
-import { banglaNumber } from '@/utils/unitLabel'
+import { banglaNumber, getUnitLabel } from '@/utils/unitLabel'
 import { Triangle } from 'lucide-react'
 import MarqueeText from 'react-marquee-text'
 
@@ -22,7 +22,9 @@ const MarqueeList = ({ priceTicker }: PriceTickerProps) => {
 
                 <div className='flex items-center gap-3 text-gray-700 font-normal'>
                   <span>{item.nameBn}</span>
-                  <span>{banglaNumber(item.today)} টাকা/কেজি</span>
+                  <span>
+                    {banglaNumber(item.today)} {getUnitLabel(item.unit)}
+                  </span>
 
                   <span>
                     {item.change.dir === 'up' ? (

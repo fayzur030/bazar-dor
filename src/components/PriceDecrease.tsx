@@ -9,7 +9,6 @@ const PriceDecrease = async () => {
     .filter((product) => product.change.dir === 'down')
     .sort((a, b) => a.change.pct - b.change.pct)
     .slice(0, 6)
-  console.log(topDecreasePrice)
   return (
     <section className='mx-3 mt-9 lg:mx-0'>
       <div className='mx-auto max-w-7xl'>
