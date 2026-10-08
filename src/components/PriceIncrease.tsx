@@ -24,9 +24,15 @@ const PriceIncrease = async () => {
 
         {/* Products */}
         <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-          {topIncreasePrice.map((product) => (
-            <PriceCard key={product.slug} product={product} trend='up' />
-          ))}
+          {topIncreasePrice.length === 0 ? (
+            <p className='col-span-full py-10 text-center text-sm text-[#5A6762]'>
+              আজ কোনো পণ্যের দাম বাড়েনি।
+            </p>
+          ) : (
+            topIncreasePrice.map((product) => (
+              <PriceCard key={product.slug} product={product} trend='up' />
+            ))
+          )}
         </div>
       </div>
     </section>

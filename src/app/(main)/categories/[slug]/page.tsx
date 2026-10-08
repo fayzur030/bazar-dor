@@ -1,4 +1,5 @@
-import PriceCard from '@/components/shared/PriceCard'
+import EmptyMessage from '@/components/EmptyMessage'
+import ProductSort from '@/components/ProductSort'
 import { getProductByCategory } from '@/services/getProductByCategory'
 import { banglaNumber } from '@/utils/unitLabel'
 import { Card } from '@heroui/react'
@@ -15,19 +16,19 @@ const CategoryPage = async ({ params }: ProductCategoryProps) => {
 
   return (
     <div>
-      <div className='mx-auto mt-10 max-w-7xl'>
-        <Card className='w-full items-stretch md:flex-row'>
-          <div className='flex items-center justify-center text-4xl'>
+      <div className='mx-auto mt-10 max-w-7xl px-3 lg:px-0'>
+        <Card className='w-full items-stretch flex-col md:flex-row'>
+          <div className='flex shrink-0 items-center justify-center text-4xl'>
             {category?.categoryIcon}
           </div>
 
-          <div className='flex flex-1 flex-col gap-3'>
+          <div className='flex min-w-0 flex-1 flex-col gap-3'>
             <Card.Header className='gap-2'>
-              <Card.Title className='text-2xl font-bold'>
+              <Card.Title className='text-xl font-bold sm:text-2xl'>
                 {category?.categoryNameBn}
               </Card.Title>
 
-              <Card.Description>
+              <Card.Description className='text-sm sm:text-base'>
                 {banglaNumber(categoryProducts.length)}টি পণ্যের আজকের দাম ও
                 পরিবর্তন
               </Card.Description>
@@ -35,15 +36,15 @@ const CategoryPage = async ({ params }: ProductCategoryProps) => {
           </div>
         </Card>
       </div>
-
-      <div className='mx-auto mt-6 grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-        {categoryProducts.map((product) => (
-          <PriceCard
-            key={product.slug}
-            product={product}
-            trend={product.change.dir}
+      <div>
+        {categoryProducts.length === 0 ? (
+          <EmptyMessage />
+        ) : (
+          <ProductSort
+            allProducts={categoryProducts}
+            description={`মোট ${banglaNumber(categoryProducts.length)} টি পণ্য দেখানো হচ্ছে`}
           />
-        ))}
+        )}
       </div>
     </div>
   )

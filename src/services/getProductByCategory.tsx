@@ -1,7 +1,8 @@
 import { Product } from '@/types/productTypes'
 // import { notFound } from 'next/navigation'
 
-const BASE_URL = 'https://api.api-store.workers.dev/api/bazardor'
+// const BASE_URL = 'https://api.api-store.workers.dev/api/bazardor'
+const BASE_URL = 'https://api.abcz.workers.dev/api/bazardor'
 export const getProductByCategory = async (
   slug: string
 ): Promise<Product[]> => {
