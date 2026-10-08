@@ -2,6 +2,7 @@ import { Card, Chip } from '@heroui/react'
 
 import { Product } from '@/types/productTypes'
 import { banglaNumber, getUnitLabel } from '@/utils/unitLabel'
+import { Triangle } from 'lucide-react'
 
 interface PriceCardProps {
   product: Product
@@ -9,10 +10,8 @@ interface PriceCardProps {
 }
 
 const PriceCard = ({ product, trend }: PriceCardProps) => {
-  const isIncrease = trend === 'up'
-
   return (
-    <Card className='border border-transparent p-4 transition-colors duration-300 hover:border-[#16A34A]'>
+    <Card className='border border-transparent select-none cursor-pointer  p-4 transition-colors duration-300 hover:border-[#16A34A] hover:cursor-'>
       {/* Product Info */}
       <div className='flex items-center gap-4'>
         <div className='text-4xl'>
@@ -45,13 +44,27 @@ const PriceCard = ({ product, trend }: PriceCardProps) => {
           }
           className={
             trend === 'up'
-              ? 'text-sm font-semibold text-red-600'
+              ? 'text-sm font-semibold text-red-600 '
               : trend === 'down'
                 ? 'text-sm font-semibold text-green-600'
                 : 'text-sm font-semibold text-gray-500'
           }
         >
-          {isIncrease ? '▲' : '▼'} {banglaNumber(Math.abs(product.change.pct))}%
+          {trend === 'up' && (
+            <Triangle
+              size={10}
+              className='rotate-0 fill-red-500 text-red-500 '
+            />
+          )}
+          {trend === 'down' && (
+            <Triangle
+              size={10}
+              className=' fill-green-600 text-green-600 rotate-180'
+            />
+          )}
+          {trend === 'flat' && '—'}
+          {'  '}
+          {banglaNumber(Math.abs(product.change.pct))}%
         </Chip>
       </div>
     </Card>

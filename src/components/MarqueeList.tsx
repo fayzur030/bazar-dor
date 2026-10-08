@@ -10,7 +10,7 @@ interface PriceTickerProps {
 const MarqueeList = ({ priceTicker }: PriceTickerProps) => {
   return (
     <div className='overflow-hidden py-2'>
-      <MarqueeText direction='right' duration={5}>
+      <MarqueeText direction='right' duration={10}>
         <ul className='flex items-center gap-6 whitespace-nowrap'>
           {priceTicker.map((item) => (
             <li
