@@ -21,10 +21,12 @@ const Navbar = ({ navItems }: NavItemsProps) => {
                   <Link
                     href={`/categories/${item.slug}`}
                     key={item.slug}
-                    className={`flex shrink-0 items-center gap-1 cursor-pointer ${active ? 'text-white bg-green-700 px-3.5 py-1 rounded' : ''}`}
+                    className={`flex shrink-0 items-center gap-1 cursor-pointer ${active ? 'text-white bg-green-700 px-3.5 py-1 rounded' : 'text-gray-500'}`}
                   >
                     <span>{item.icon}</span>
-                    <span className='text-xs font-bold'>{item.nameBn}</span>
+                    <span className='text-xs font-semibold '>
+                      {item.nameBn}
+                    </span>
                   </Link>
                 )
               })}

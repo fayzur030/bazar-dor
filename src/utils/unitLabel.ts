@@ -1,12 +1,16 @@
-export const getUnitLabel = (unit: string) => {
-  const units: Record<string, string> = {
-    kg: 'প্রতি কেজি',
-    piece: 'প্রতি পিস',
-    liter: 'প্রতি লিটার',
-    dozen: 'প্রতি ডজন',
-  }
+const unitLabels: Record<string, string> = {
+  kg: 'কেজি',
+  piece: 'পিস',
+  litre: 'লিটার',
+  dozen: 'ডজন',
+}
 
-  return units[unit] || unit
+export const getUnitLabel = (unit: string) => {
+  return `প্রতি ${unitLabels[unit] || unit}`
+}
+
+export const getUnitName = (unit: string) => {
+  return unitLabels[unit] || unit
 }
 
 export const banglaNumber = (number: number) => {
