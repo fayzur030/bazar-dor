@@ -53,6 +53,22 @@ const SignInForm = () => {
     }
   }
 
+  //handle sign in with google
+
+  const handleGoogleSignIn = async () => {
+    const { data, error } = await authClient.signIn.social({
+      provider: 'google',
+      callbackURL: '/',
+    })
+    console.log(data)
+    if (error) {
+      toast.danger(error.message)
+      return
+    }
+    toast.success('গুগল দিয়ে সাইন ইন সফল হয়েছে!')
+    router.push('/')
+  }
+
   return (
     <div>
       <div className='flex flex-col space-y-6 items-center justify-center h-screen px-3 lg:px-0'>
@@ -123,6 +139,7 @@ const SignInForm = () => {
           <div className='grid grid-cols-2 gap-3'>
             {/* Google */}
             <button
+              onClick={handleGoogleSignIn}
               type='button'
               className='flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 cursor-pointer'
             >

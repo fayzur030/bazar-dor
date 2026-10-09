@@ -64,6 +64,20 @@ const SignUpForm = () => {
       setIsLoading(false)
     }
   }
+  //handle sign up with google
+
+  const handleGoogleSignIn = async () => {
+    const { error } = await authClient.signIn.social({
+      provider: 'google',
+    })
+
+    if (error) {
+      toast.danger(error.message)
+      return
+    }
+    toast.success('গুগল দিয়ে রেজিস্ট্রেশন সফল হয়েছে!')
+    router.push('/')
+  }
 
   return (
     <div>
@@ -135,7 +149,7 @@ const SignUpForm = () => {
             <FieldError />
           </TextField>
           {/* পাসওয়ার্ড নিশ্চিত করুন */}
-          {/* পাসওয়ার্ড নিশ্চিত করুন */}
+
           <TextField
             isRequired
             name='confirmPassword'
@@ -193,6 +207,7 @@ const SignUpForm = () => {
           <div className='grid grid-cols-2 gap-3'>
             {/* Google */}
             <button
+              onClick={handleGoogleSignIn}
               type='button'
               className='flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 cursor-pointer'
             >
