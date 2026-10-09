@@ -1,5 +1,6 @@
 'use client'
 
+import { authClient } from '@/lib/auth-client'
 import {
   Button,
   //   Description,
@@ -9,11 +10,45 @@ import {
   Label,
   Separator,
   TextField,
+  toast,
 } from '@heroui/react'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+
+type SignFormData = {
+  name: string
+  email: string
+  password: string
+  confirmPassword: string
+}
 
 const SignUpForm = () => {
+  const router = useRouter()
+  // Form submit
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const userData = Object.fromEntries(formData.entries()) as SignFormData
+
+    if (userData.password !== userData.confirmPassword) {
+      toast.danger('পাসওয়ার্ড দুটি মিলছে না!')
+      return
+    }
+
+    const { data, error } = await authClient.signUp.email({
+      name: userData.name,
+      email: userData.email,
+      password: userData.password,
+    })
+    console.log(data)
+    if (error) {
+      toast.danger(error.message)
+      return
+    }
+    toast.success('রেজিস্ট্রেশন সফল হয়েছে!')
+    router.push('sign-in')
+  }
   return (
     <div>
       <div className='flex flex-col space-y-6 items-center justify-center h-screen px-3 lg:px-0'>
@@ -23,11 +58,14 @@ const SignUpForm = () => {
             বিনা খরচে সাইন আপ করে সব বিস্তারিত দাম দেখুন।
           </p>
         </div>
-        <Form className='flex flex-col gap-4 border p-6 rounded-lg bg-white'>
+        <Form
+          onSubmit={onSubmit}
+          className='flex flex-col gap-4 border p-6 rounded-lg bg-white'
+        >
           <TextField name='name' type='name' isRequired>
             <Label>নাম</Label>
             <Input
-              name='text'
+              name='name'
               placeholder='যেমন: রহিম উদ্দিন'
               className='border border-gray-200 rounded-md w-full md:w-90 shadow-none py-2.5'
             />
@@ -107,7 +145,10 @@ const SignUpForm = () => {
             }}
           >
             <Label>পাসওয়ার্ড নিশ্চিত করুন</Label>
-            <Input placeholder='আবার লিখুন'  className='border border-gray-200 rounded-md w-full md:w-90 shadow-none py-2.5'/>
+            <Input
+              placeholder='আবার লিখুন'
+              className='border border-gray-200 rounded-md w-full md:w-90 shadow-none py-2.5'
+            />
             <FieldError />
           </TextField>
           <div className='flex gap-2 w-full'>
