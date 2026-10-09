@@ -1,5 +1,6 @@
 import Marquee from '@/components/Marquee'
 import CategoryNavbar from '@/components/shared/CategoryNavbar'
+import Footer from '@/components/shared/Footer'
 import Header from '@/components/shared/Header'
 
 export default async function MainLayout({
@@ -13,6 +14,7 @@ export default async function MainLayout({
       <CategoryNavbar />
       <Marquee />
       <main>{children}</main>
+      <Footer />
     </>
   )
 }
