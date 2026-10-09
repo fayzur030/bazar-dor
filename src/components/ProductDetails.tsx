@@ -101,7 +101,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                       ? '▼'
                       : '—'}{' '}
                   {banglaNumber(
-                    Math.abs(product.change.pct).toFixed(1) as string
+                    Number(Math.abs(product.change.pct).toFixed(1))
                   )}
                   %
                   {/* {banglaNumber(Number(Math.abs(product.change.pct).toFixed(1)))}% */}
