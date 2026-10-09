@@ -10,14 +10,14 @@ interface PriceTickerProps {
 const MarqueeList = ({ priceTicker }: PriceTickerProps) => {
   return (
     <div className='overflow-hidden py-2'>
-      <MarqueeText direction='right' duration={10}>
+      <MarqueeText direction='right' duration={10} pauseOnHover={true}>
         <ul className='flex items-center gap-6 whitespace-nowrap'>
           {priceTicker.map((item) => (
             <li
               key={item.slug}
               className='shrink-0 border-r border-neutral-200 pr-4'
             >
-              <div className='flex items-center gap-1 text-sm'>
+              <div className='flex items-center gap-1 text-sm  '>
                 <span>{item.image}</span>
 
                 <div className='flex items-center gap-3 text-gray-700 font-normal'>
@@ -50,5 +50,3 @@ const MarqueeList = ({ priceTicker }: PriceTickerProps) => {
 }
 
 export default MarqueeList
-//   <Triangle size={14} />
-//<Triangle size={14} className='rotate-180' />

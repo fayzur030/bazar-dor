@@ -121,7 +121,7 @@ const UserInfo = () => {
 
           <Link
             href='/sign-up'
-            className='rounded-lg bg-[#16A34A] px-4 py-2.5 text-sm font-medium text-white shadow-sm transition duration-300 hover:bg-green-700 hidden lg:block'
+            className='rounded-lg bg-[#16A34A] px-4 py-2.5 text-sm font-medium text-white shadow-sm transition duration-300 hover:bg-green-700 hidden md:block lg:block'
           >
             সাইন আপ
           </Link>

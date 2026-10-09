@@ -1,5 +1,5 @@
-import logo from '@/assets/logo-icon.png'
-import Image from 'next/image'
+// import logo from '@/assets/logo-icon.png'
+// import Image from 'next/image'
 import Link from 'next/link'
 import BanglaDate from './BanglaDate'
 import UserInfo from '../userInfo/UserInfo'
@@ -10,14 +10,16 @@ const Header = () => {
       <div className='mx-auto flex max-w-7xl items-center px-4 justify-between'>
         <Link href='/' className='inline-flex items-center'>
           <div className='flex items-center gap-3'>
-            <Image
+            {/* <Image
               src={logo}
               alt='Logo'
               width={40}
               height={40}
               className='rounded-xl border border-[#95bba3] bg-green-50 p-2 text-white'
-            />
-
+            /> */}
+            <div className='rounded-xl border border-black/60 bg-[#008956] p-2 text-white'>
+              🛒
+            </div>
             <div>
               <h1 className='text-base md:text-xl font-extrabold text-[#172721]'>
                 বাজার দর
