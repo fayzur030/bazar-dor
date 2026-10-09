@@ -68,6 +68,20 @@ const SignInForm = () => {
     toast.success('গুগল দিয়ে সাইন ইন সফল হয়েছে!')
     router.push('/')
   }
+  //SignIn with GutHub
+
+  const handleGitHubSignIn = async () => {
+    const { error } = await authClient.signIn.social({
+      provider: 'github',
+    })
+
+    if (error) {
+      toast.danger(error.message)
+      return
+    }
+    toast.success('গিটহাব দিয়ে রেজিস্ট্রেশন সফল হয়েছে!')
+    router.push('/')
+  }
 
   return (
     <div>
@@ -166,6 +180,7 @@ const SignInForm = () => {
 
             {/* GitHub */}
             <button
+              onClick={handleGitHubSignIn}
               type='button'
               className='flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 cursor-pointer'
             >
