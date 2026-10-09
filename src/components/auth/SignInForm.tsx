@@ -1,19 +1,45 @@
 'use client'
 
+import { authClient } from '@/lib/auth-client'
 import {
   Button,
-  //   Description,
   FieldError,
   Form,
   Input,
   Label,
   Separator,
   TextField,
+  toast,
 } from '@heroui/react'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+type SignInData = {
+  email: string
+  password: string
+}
 
 const SignInForm = () => {
+  const router = useRouter()
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const userData = Object.fromEntries(formData.entries()) as SignInData
+
+    const { error } = await authClient.signIn.email({
+      email: userData.email,
+      password: userData.password,
+    })
+
+    if (error) {
+      toast.danger(error?.message)
+      return
+    }
+    toast.success('স্বাগতম! সফলভাবে সাইন ইন করেছেন।')
+    router.push('/')
+  }
+
   return (
     <div>
       <div className='flex flex-col space-y-6 items-center justify-center h-screen px-3 lg:px-0'>
@@ -23,7 +49,10 @@ const SignInForm = () => {
             বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।
           </p>
         </div>
-        <Form className='flex flex-col gap-4 border p-6 rounded-lg bg-white'>
+        <Form
+          onSubmit={onSubmit}
+          className='flex flex-col gap-4 border p-6 rounded-lg bg-white'
+        >
           {/* ইমেইল */}
           <TextField
             isRequired

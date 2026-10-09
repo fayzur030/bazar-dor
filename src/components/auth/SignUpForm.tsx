@@ -36,12 +36,12 @@ const SignUpForm = () => {
       return
     }
 
-    const { data, error } = await authClient.signUp.email({
+    const { error } = await authClient.signUp.email({
       name: userData.name,
       email: userData.email,
       password: userData.password,
     })
-    console.log(data)
+
     if (error) {
       toast.danger(error.message)
       return
