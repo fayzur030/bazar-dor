@@ -9,12 +9,14 @@ import {
   Input,
   Label,
   Separator,
+  Spinner,
   TextField,
   toast,
 } from '@heroui/react'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 type SignFormData = {
   name: string
@@ -25,30 +27,44 @@ type SignFormData = {
 
 const SignUpForm = () => {
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+
   // Form submit
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
     const formData = new FormData(e.currentTarget)
     const userData = Object.fromEntries(formData.entries()) as SignFormData
 
     if (userData.password !== userData.confirmPassword) {
-      toast.danger('পাসওয়ার্ড দুটি মিলছে না!')
+      toast.danger('পাসওয়ার্ড দুটি মিলছে না। অনুগ্রহ করে আবার চেষ্টা করুন!')
       return
     }
 
-    const { error } = await authClient.signUp.email({
-      name: userData.name,
-      email: userData.email,
-      password: userData.password,
-    })
+    setIsLoading(true)
 
-    if (error) {
-      toast.danger(error.message)
-      return
+    try {
+      const { error } = await authClient.signUp.email({
+        name: userData.name,
+        email: userData.email,
+        password: userData.password,
+      })
+
+      if (error) {
+        toast.danger(error.message)
+        return
+      }
+
+      toast.success('রেজিস্ট্রেশন সফল হয়েছে!')
+      router.push('/sign-in')
+    } catch (error) {
+      console.error(error)
+      toast.danger('রেজিস্ট্রেশন করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।')
+    } finally {
+      setIsLoading(false)
     }
-    toast.success('রেজিস্ট্রেশন সফল হয়েছে!')
-    router.push('sign-in')
   }
+
   return (
     <div>
       <div className='flex flex-col space-y-6 items-center justify-center h-screen px-3 lg:px-0'>
@@ -152,8 +168,20 @@ const SignUpForm = () => {
             <FieldError />
           </TextField>
           <div className='flex gap-2 w-full'>
-            <Button type='submit' className='w-full rounded-md bg-[#047F39]'>
-              অ্যাকাউন্ট তৈরি করুন
+            <Button
+              type='submit'
+              className='w-full rounded-md bg-[#047F39] text-white'
+              isPending={isLoading}
+              isDisabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Spinner size='sm' color='current' />
+                  অ্যাকাউন্ট তৈরি হচ্ছে...
+                </>
+              ) : (
+                'অ্যাকাউন্ট তৈরি করুন'
+              )}
             </Button>
           </div>
           <div className='flex items-center gap-3'>

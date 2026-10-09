@@ -8,12 +8,14 @@ import {
   Input,
   Label,
   Separator,
+  Spinner,
   TextField,
   toast,
 } from '@heroui/react'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 type SignInData = {
   email: string
   password: string
@@ -21,23 +23,34 @@ type SignInData = {
 
 const SignInForm = () => {
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    const userData = Object.fromEntries(formData.entries()) as SignInData
+    setIsLoading(true)
 
-    const { error } = await authClient.signIn.email({
-      email: userData.email,
-      password: userData.password,
-    })
+    try {
+      const formData = new FormData(e.currentTarget)
+      const userData = Object.fromEntries(formData.entries()) as SignInData
 
-    if (error) {
-      toast.danger(error?.message)
-      return
+      const { error } = await authClient.signIn.email({
+        email: userData.email,
+        password: userData.password,
+      })
+
+      if (error) {
+        toast.danger(error.message)
+        return
+      }
+
+      toast.success('স্বাগতম! সফলভাবে সাইন ইন করেছেন।')
+      router.push('/')
+    } catch (error) {
+      console.error(error)
+      toast.danger('সাইন ইন করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।')
+    } finally {
+      setIsLoading(false)
     }
-    toast.success('স্বাগতম! সফলভাবে সাইন ইন করেছেন।')
-    router.push('/')
   }
 
   return (
@@ -72,24 +85,7 @@ const SignInForm = () => {
             />
             <FieldError />
           </TextField>
-          <TextField
-            isRequired
-            minLength={8}
-            name='password'
-            type='password'
-            validate={(value) => {
-              if (value.length < 8) {
-                return 'Password must be at least 8 characters'
-              }
-              if (!/[A-Z]/.test(value)) {
-                return 'Password must contain at least one uppercase letter'
-              }
-              if (!/[0-9]/.test(value)) {
-                return 'Password must contain at least one number'
-              }
-              return null
-            }}
-          >
+          <TextField isRequired minLength={8} name='password' type='password'>
             <Label>পাসওয়ার্ড</Label>
             <Input
               placeholder='কমপক্ষে ৮ অক্ষর'
@@ -102,8 +98,20 @@ const SignInForm = () => {
           </TextField>
 
           <div className='flex gap-2 w-full'>
-            <Button type='submit' className='w-full rounded-md bg-[#047F39]'>
-              সাইন ইন
+            <Button
+              type='submit'
+              className='w-full rounded-md bg-[#047F39] text-white'
+              isPending={isLoading}
+              isDisabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Spinner size='sm' color='current' />
+                  সাইন ইন হচ্ছে...
+                </>
+              ) : (
+                'সাইন ইন'
+              )}
             </Button>
           </div>
           <div className='flex items-center gap-3'>
