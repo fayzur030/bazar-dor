@@ -9,13 +9,13 @@ export default async function MainLayout({
   children: React.ReactNode
 }) {
   return (
-    <>
+    <div className='flex min-h-screen flex-col'>
       <Header />
       <CategoryNavbar />
       <Marquee />
-      <main>{children}</main>
+      <main className='flex-1'>{children}</main>
       <Footer />
-    </>
+    </div>
   )
 }
 
