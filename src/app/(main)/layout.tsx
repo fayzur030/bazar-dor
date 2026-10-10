@@ -10,8 +10,10 @@ export default async function MainLayout({
 }) {
   return (
     <div className='flex min-h-screen flex-col'>
-      <Header />
-      <CategoryNavbar />
+      <div className='sticky top-0 z-50'>
+        <Header />
+        <CategoryNavbar />
+      </div>
       <Marquee />
       <main className='flex-1'>{children}</main>
       <Footer />

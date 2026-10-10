@@ -10,7 +10,7 @@ interface NavItemsProps {
 const Navbar = ({ navItems }: NavItemsProps) => {
   const pathname = usePathname()
   return (
-    <div className='bg-white border-b border-neutral-100'>
+    <div className='bg-white border-b border-neutral-100 sticky'>
       <div className='px-3 md:px-0'>
         <div className='mx-auto max-w-7xl px-4 py-4 '>
           <nav className='overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
